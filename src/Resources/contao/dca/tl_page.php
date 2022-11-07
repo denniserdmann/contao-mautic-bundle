@@ -2,8 +2,8 @@
 
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'use_mautic';
 
-$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace( 'fallback;', 'fallback;{mautic_legend},mautic_host,exclude_mautic,use_mautic;', $GLOBALS['TL_DCA']['tl_page']['palettes']['root'] );
-$GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] = str_replace( 'description;', 'description;{mautic_legend},exclude_mautic,use_mautic;', $GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] );
+$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace( 'disableLanguageRedirect;', 'disableLanguageRedirect;{mautic_legend},mautic_host,exclude_mautic,use_mautic;', $GLOBALS['TL_DCA']['tl_page']['palettes']['root'] );
+$GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] = str_replace( 'serpPreview;', 'serpPreview;{mautic_legend},exclude_mautic,use_mautic;', $GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] );
 
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['use_mautic'] = 'mautic_focus_item';
 
