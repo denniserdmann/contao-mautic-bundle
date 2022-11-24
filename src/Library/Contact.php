@@ -30,7 +30,7 @@ class Contact extends ApiLayer {
 
         $this->addContact( $arrData, [
             'addToSegment' => $arrForm['mautic_add_to_segment'],
-            'segmentId' => $arrForm['mautic_add_to_segment']
+            'segmentId' => $arrForm['mautic_segment']
         ]);
     }
 
