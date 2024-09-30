@@ -1,11 +1,18 @@
 <?php
 
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
+
+PaletteManipulator::create()
+    ->addLegend('mautic_legend', 'template_legend', PaletteManipulator::POSITION_BEFORE)
+    ->addField('use_mautic', 'mautic_legend', PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('registration', 'tl_module')
+    ->applyToPalette('closeAccount', 'tl_module')
+;
+
+
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'use_mautic';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'mautic_create_contact';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'mautic_add_to_segment';
-
-$GLOBALS['TL_DCA']['tl_module']['palettes']['registration'] = str_replace( 'reg_activate;', 'reg_activate;{mautic_legend},use_mautic;', $GLOBALS['TL_DCA']['tl_module']['palettes']['registration'] );
-$GLOBALS['TL_DCA']['tl_module']['palettes']['closeAccount'] = str_replace( 'jumpTo;', 'jumpTo;{mautic_legend},use_mautic;', $GLOBALS['TL_DCA']['tl_module']['palettes']['closeAccount'] );
 
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['use_mautic'] = 'mautic_create_contact';
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['mautic_add_to_segment'] = 'mautic_segment';
