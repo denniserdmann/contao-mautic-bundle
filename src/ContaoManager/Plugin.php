@@ -16,9 +16,9 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface {
     public function getBundles( ParserInterface $parser ) {
 
         return [
-
             BundleConfig::create('Alnv\MauticBundle\AlnvMauticBundle')
                 ->setLoadAfter(['Contao\CoreBundle\ContaoCoreBundle'])
+                ->setLoadAfter(['Contao\NewsletterBundle\ContaoNewsletterBundle'])
                 ->setReplace(['contao-mautic-bundle']),
         ];
     }

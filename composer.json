@@ -3,7 +3,19 @@
   "type": "contao-bundle",
   "license": "LGPL-3.0-or-later",
   "description": "This extension provides a Mautic integration for Contao CMS.",
-  "keywords": [ "contao", "mautic", "marketing", "automation", "funnel", "lead", "form", "landing page", "newsletter", "focus item", "tracking" ],
+  "keywords": [
+    "contao",
+    "mautic",
+    "marketing",
+    "automation",
+    "funnel",
+    "lead",
+    "form",
+    "landing page",
+    "newsletter",
+    "focus item",
+    "tracking"
+  ],
   "authors": [
     {
       "name": "Alexander Naumov",
@@ -32,6 +44,8 @@
   "require": {
     "php": ">=7.1",
     "contao/core-bundle": "^4.4",
+    "contao/newsletter-bundle": "^4.13",
+    "terminal42/notification_center": "^1.6",
     "mautic/api-library": "^2.15"
   },
   "config": {

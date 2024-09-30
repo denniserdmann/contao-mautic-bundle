@@ -3,32 +3,37 @@
 namespace Alnv\MauticBundle\Hooks;
 
 use Alnv\MauticBundle\Library\Contact;
-
+use Contao\Database;
 
 class Newsletter {
 
 
-    public function activateRecipient( $strEmail ) {
+    public function activateRecipient(string $email, array $recipientIds, array $channelIds) {
+        foreach ($channelIds as $channelId) {
+            $newsletterChannel = Database::getInstance()
+                ->prepare("SELECT * FROM tl_newsletter_channel WHERE id = ?")
+                ->execute($channelId)
+                ->fetchAssoc();
 
-        if ( !\Config::get('mauticUseNewsletter') ) {
+            if ($newsletterChannel) {
+                $addToSegment = $newsletterChannel['mautic_add_to_segment'];
+                $segmentId = $newsletterChannel['mautic_segment'];
 
-            return null;
+                if( !$addToSegment || !$segmentId ) {
+                    return null;
+                }
+                
+                $objContact = new Contact();
+                $arrData = [
+                    'email' => $email
+                ];
+
+                $objContact->addContact($arrData, [
+                    'addToSegment' => $addToSegment,
+                    'segmentId' => $segmentId
+                ]);
+            }
         }
-
-        if ( !\Config::get('mauticCreateNewsletterContact') ) {
-
-            return null;
-        }
-
-        $arrData = [
-            'email' => $strEmail
-        ];
-
-        $objContact = new Contact();
-        $objContact->addContact( $arrData, [
-            'addToSegment' => \Config::get('mauticAddSegmentOnRecipientActivation') ? '1' : '',
-            'segmentId' => \Config::get('mauticAddSegmentOnRecipientActivation')
-        ]);
     }
 
 
