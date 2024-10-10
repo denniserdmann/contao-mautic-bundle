@@ -21,12 +21,15 @@ class Registration {
             return null;
         }
 
-        $arrSettings = [
-            'addToSegment' => $objModule->mautic_add_to_segment,
-            'segmentId' => $objModule->mautic_segment
+        $objContact = new Contact();
+        $arrData = [
+            'email' => $arrSubmit['email']
         ];
 
-        $this->createContact( $arrSubmit, $arrSettings );
+        $objContact->addContact($arrData, [
+            'addToSegment' => $objModule->mautic_add_to_segment,
+            'segmentId' => $objModule->mautic_segment
+        ]);
     }
 
 
@@ -54,31 +57,5 @@ class Registration {
 
         $objUser = \FrontendUser::getInstance();
         $this->createContact( $objUser->getData(), $arrSettings );
-    }
-
-
-    protected function createContact( $arrSubmit, $arrSettings ) {
-
-        $arrData = [];
-        $objRole = new Role();
-        $arrRoles = $objRole->getRoles();
-
-        if ( !is_array( $arrRoles ) || empty( $arrRoles ) ) {
-
-            return null;
-        }
-
-        foreach ( $arrRoles as $strName => $strValue ) {
-
-            $strSystemName = $GLOBALS['MAUTIC']['PARAMETERS'][ $strName ] ?: $strName;
-
-            if ( $arrSubmit[ $strSystemName ] != null || $arrSubmit[ $strSystemName ] != '' ) {
-
-                $arrData[ $strName ] = $arrSubmit[ $strSystemName ];
-            }
-        }
-
-        $objContact = new Contact();
-        $objContact->addContact( $arrData, $arrSettings );
     }
 }
